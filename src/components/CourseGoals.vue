@@ -6,36 +6,60 @@
 </template>
 
 <script>
-// import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import AddGoal from "@/components/AddGoal";
 import GoalsList from "@/components/GoalsList";
 
 export default {
   name: "CourseGoals",
   components: {AddGoal, GoalsList},
-  data() {
-    return {
-      goals: []
-    }
-  },
 
-  computed: {
-    filteredGoals() {
-      return this.goals.filter((goal) =>
-          !goal.text.includes('Angular') && !goal.text.includes('React')
-      )
-    }
-  },
+  setup() {
+    const goals = ref([])
 
-  methods: {
-    addGoal(text) {
+    const filteredGoals = computed(function() {
+      return goals.value.filter((goal) =>
+              !goal.text.includes('Angular') && !goal.text.includes('React')
+          )
+    })
+
+    function addGoal(text) {
       const newGoal = {
         id: new Date().toISOString(),
         text: text
       }
-      this.goals.push(newGoal)
+      goals.value.push(newGoal)
+    }
+
+    return {
+      filteredGoals: filteredGoals,
+      addGoal: addGoal
     }
   }
+
+  // data() {
+  //   return {
+  //     goals: []
+  //   }
+  // },
+  //
+  // computed: {
+  //   filteredGoals() {
+  //     return this.goals.filter((goal) =>
+  //         !goal.text.includes('Angular') && !goal.text.includes('React')
+  //     )
+  //   }
+  // },
+  //
+  // methods: {
+  //   addGoal(text) {
+  //     const newGoal = {
+  //       id: new Date().toISOString(),
+  //       text: text
+  //     }
+  //     this.goals.push(newGoal)
+  //   }
+  // }
 }
 </script>
 

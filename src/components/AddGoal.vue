@@ -12,38 +12,68 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+
 export default {
   name: "AddGoal",
 
   emits: ['add-goal'],
 
-  data() {
-    return {
-      enteredText: '',
-      invalidInput: false
-    }
-  },
+  setup(_, context) {
+    const enteredText = ref('')
+    const invalidInput = ref(false)
 
-  methods: {
-    addGoal() {
-      this.invalidInput = false
-      if(this.enteredText === '') {
-        this.invalidInput = true
-        return
-      }
-
-      this.$emit('add-goal', this.enteredText)
-      this.enteredText = ''
-     }
-  },
-
-  watch: {
-    invalidInput(val) {
+    watch(invalidInput, function(val) {
       if(val) {
         console.log('Analytics: Invalid Input.')
       }
+    })
+
+    function addGoal() {
+      invalidInput.value = false
+      if(enteredText.value === '') {
+        invalidInput.value = true
+        return
+      }
+
+      context.emit('add-goal', enteredText.value)
+      enteredText.value = ''
+    }
+
+    return {
+      enteredText,
+      invalidInput,
+      addGoal
     }
   }
+
+  // data() {
+  //   return {
+  //     enteredText: '',
+  //     invalidInput: false
+  //   }
+  // },
+  //
+  // methods: {
+  //   addGoal() {
+  //     this.invalidInput = false
+  //     if(this.enteredText === '') {
+  //       this.invalidInput = true
+  //       return
+  //     }
+  //
+  //     this.$emit('add-goal', this.enteredText)
+  //     this.enteredText = ''
+  //    }
+  // },
+  //
+  // watch: {
+  //   invalidInput(val) {
+  //     if(val) {
+  //       console.log('Analytics: Invalid Input.')
+  //     }
+  //   }
+  // }
 
 }
 </script>
