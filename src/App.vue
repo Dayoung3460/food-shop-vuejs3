@@ -22,17 +22,24 @@
   </router-view>
 
   <admin-center></admin-center>
+
+<!-- composition api-->
+  <hr/>
+  <p>Using Composition API</p>
+  <course-goals></course-goals>
 </template>
 
 <script>
 import Button from './components/VueButton'
 import AdminCenter from "@/components/AdminCenter";
+import CourseGoals from '@/components/CourseGoals'
 
 export default {
   name: 'App',
   components: {
     Button,
-    AdminCenter
+    AdminCenter,
+    CourseGoals
   },
 
   data() {
