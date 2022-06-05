@@ -20,15 +20,19 @@
       <component :is="slotProps.Component"></component>
     </transition>
   </router-view>
+
+  <admin-center></admin-center>
 </template>
 
 <script>
 import Button from './components/VueButton'
+import AdminCenter from "@/components/AdminCenter";
 
 export default {
   name: 'App',
   components: {
-    Button
+    Button,
+    AdminCenter
   },
 
   data() {
